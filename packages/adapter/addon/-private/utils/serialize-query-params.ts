@@ -8,7 +8,7 @@ function isPlainObject(obj: any): boolean {
  * Helper function that turns the data/body of a request into a query param string.
  * This is directly copied from jQuery.param.
  */
-export function serializeQueryParams(queryParamsObject: object | string): string {
+export function serializeQueryParams(queryParamsObject: object | string, traditional: false): string {
   var s: any[] = [];
 
   function buildParams(prefix: string, obj: any) {
@@ -20,7 +20,10 @@ export function serializeQueryParams(queryParamsObject: object | string): string
           if (RBRACKET.test(prefix)) {
             add(s, prefix, obj[i]);
           } else {
-            buildParams(prefix + '[' + (typeof obj[i] === 'object' ? i : '') + ']', obj[i]);
+            const lB = traditional ? '' : '[';
+            const rB = traditional ? '' : ']';
+
+            buildParams(prefix + lB + (typeof obj[i] === 'object' ? i : '') + rB, obj[i]);
           }
         }
       } else if (isPlainObject(obj)) {
