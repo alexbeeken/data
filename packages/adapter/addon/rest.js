@@ -1348,7 +1348,7 @@ export function fetchOptions(options, adapter) {
       if (Object.keys(options.data).length) {
         // Test if there are already query params in the url (mimics jQuey.ajax).
         const queryParamDelimiter = options.url.indexOf('?') > -1 ? '&' : '?';
-        options.url += `${queryParamDelimiter}${serializeQueryParams(options.data)}`;
+        options.url += `${queryParamDelimiter}${serializeQueryParams(options.data, options.traditional)}`;
       }
     } else {
       // NOTE: a request's body cannot be an object, so we stringify it if it is.
